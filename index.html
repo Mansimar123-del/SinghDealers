@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singh Dealers - Wholesale Products</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: #34495e;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Intro Animation Styles */
+        .intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, #ff758c, #ff7e5f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: fadeOut 2s ease-out forwards;
+        }
+
+        .intro h1 {
+            color: #ffe53b; /* Changed to a bright yellow for better visibility */
+            font-size: 4em;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+
+        /* Particle animation for the background */
+        .particle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, #fc466b, #3f5efb);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-100px) scale(1.2);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Main content (hidden during intro) */
+        .main-content {
+            display: none;
+            opacity: 0;
+            animation: revealContent 2s 2s forwards; /* Starts 2s after the intro fades */
+        }
+
+        @keyframes revealContent {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 3.5em;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.4em;
+            font-style: italic;
+        }
+
+        .contact {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+            color: white;
+        }
+
+        .contact a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Product Section Styles */
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 40px auto;
+            padding: 20px;
+            max-width: 1200px;
+        }
+
+        .product {
+            background: linear-gradient(145deg, #ffafbd, #ffc3a0);
+            margin: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product h3 {
+            margin: 15px 0;
+            font-size: 1.6em;
+            color: #2c3e50;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .product p {
+            color: #34495e;
+        }
+
+        /* User Details Modal (hidden initially) */
+        .user-details {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .user-details form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .user-details input {
+            margin: 5px;
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .user-details button {
+            padding: 12px 25px;
+            background: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .user-details button:hover {
+            background: #2a5298;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Intro Section -->
+    <div class="intro" id="intro">
+        <h1>Welcome to Singh Dealers</h1>
+        <div class="particle-container" id="particle-container"></div>
+    </div>
+
+    <!-- Main content (hidden initially) -->
+    <div class="main-content" id="main-content">
+
+        <div class="header">
+            <h1>Singh Dealers</h1>
+            <p>Wholesale Products - Contact for Prices</p>
+            <div class="contact">
+                <h2>Contact Us</h2>
+                <p>Email: <span onclick="openEmail()" style="cursor: pointer; text-decoration: underline;">singh.dealers@gmail.com</span></p>
+                <p>Phone: <a href="tel:+917008769637">+91-7008769637</a></p>
+            </div>
+        </div>
+
+        <div class="products" id="product-container">
+            <div class="product">
+                <img src="https://via.placeholder.com/200x200" alt="Product Image">
+                <h3>Product Name 1</h3>
+                <p>Description of the first product goes here.</p>
+                <div class="product-code"><a href="#" onclick="showDetails('Product Name 1', 'Product Code 001')">Product Code: 001</a></div>
+            </div>
+
+            <div class="product">
+                <img src="https://via.placeholder.com/200x200" alt="Product Image">
+                <h3>Product Name 2</h3>
+                <p>Description of the second product goes here.</p>
+                <div class="product-code"><a href="#" onclick="showDetails('Product Name 2', 'Product Code 002')">Product Code: 002</a></div>
+            </div>
+
+            <div class="product">
+                <img src="https://via.placeholder.com/200x200" alt="Product Image">
+                <h3>Product Name 3</h3>
+                <p>Description of the third product goes here.</p>
+                <div class="product-code"><a href="#" onclick="showDetails('Product Name 3', 'Product Code 003')">Product Code: 003</a></div>
+            </div>
+        </div>
+
+        <div class="user-details" id="user-details">
+            <form id="user-form" onsubmit="sendEmail(event)">
+                <h3>Enter Your Details</h3>
+                <input type="text" id="user-name" placeholder="Your Name" required>
+                <input type="text" id="user-phone" placeholder="Your Phone Number" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Display main content after intro animation finishes
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(() => {
+                document.getElementById('intro').style.display = 'none'; // Hide intro
+                document.getElementById('main-content').style.display = 'block'; // Show main content
+            }, 2000); // Set time to match animation duration
+
+            createParticles(50); // Call particle animation function
+        });
+
+        // Create particles for animation
+        function createParticles(number) {
+            const container = document.getElementById('particle-container');
+            for (let i = 0; i < number; i++) {
+                let particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.width = `${Math.random() * 20 + 10}px`;
+                particle.style.height = `${Math.random() * 20 + 10}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${Math.random() * 6 + 3}s`;
+                container.appendChild(particle);
+            }
+        }
+
+        let productName, productCode;
+
+        const showDetails = (name, code) => {
+            productName = name;
+            productCode = code;
+            document.getElementById('user-details').style.display = 'flex';
+        };
+
+        const openEmail = () => {
+            const emailBody = `Hello,\n\nI would like to inquire about your products.\n\nThanks!`;
+            const email = `https://mail.google.com/mail/?view=cm&fs=1`;
+        };
+    </script>
+</body>
+</html>
